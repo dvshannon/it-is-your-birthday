@@ -4,12 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT IS YOUR BIRTHDAY.</title>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
-    <h1>IT IS YOUR BIRTHDAY.</h1>
-    <h2>The only reason I use facebook on one page</h2>
-
+    <div class="container">
+        <h1>IT IS YOUR BIRTHDAY.</h1>
+        <p>The only reason I use facebook on one page</p>
+        <div id="login-cta"></div>
+        <a href="#" onclick="logout()" id="logout-btn" class="btn">Logout</a>
+        <fb:login-button 
+        id="fb-btn"
+        scope="public_profile,email"
+        onlogin="checkLoginState();">
+        </fb:login-button>
+        <div id="profile">test</div>
+    </div>
 
 </body>
 
@@ -37,24 +46,43 @@
        fjs.parentNode.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
 
+    //  returns the status
     function statusChangeCallback(response){
         if (response.status === 'connected'){
             console.log('Authenticated');
+            setElements(true);
         } else {
-            console.log('Not authenticated');
+            console.log('Not Authenticated');
+            setElements(false);
         }
     }
 
-
+    // checks status
     function checkLoginState() {
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
     });
     }
+
+    // shows/hides elements based off of authentication type
+    function setElements(isLoggedIn){
+        if(isLoggedIn){
+            document.getElementById('logout').style.display = 'block';
+            document.getElementById('profile').style.display = 'block';
+            document.getElementById('fb-btn').style.display = 'none';
+        } else {
+            document.getElementById('logout').style.display = 'none';
+            document.getElementById('profile').style.display = 'none';
+            document.getElementById('fb-btn').style.display = 'block';
+        }
+    }
+
+    function logout(){
+        FB.logout(function(response){
+            setElements(false);
+        })
+    }
   </script>
 
-    <fb:login-button 
-        scope="public_profile,email"
-        onlogin="checkLoginState();">
-    </fb:login-button>
+    
 </html>
