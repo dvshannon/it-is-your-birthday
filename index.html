@@ -67,11 +67,11 @@
     // shows/hides elements based off of authentication type
     function setElements(isLoggedIn){
         if(isLoggedIn){
-            document.getElementById('logout').style.display = 'block';
+            document.getElementById('logout-btn').style.display = 'block';
             document.getElementById('profile').style.display = 'block';
             document.getElementById('fb-btn').style.display = 'none';
         } else {
-            document.getElementById('logout').style.display = 'none';
+            document.getElementById('logout-btn').style.display = 'none';
             document.getElementById('profile').style.display = 'none';
             document.getElementById('fb-btn').style.display = 'block';
         }
