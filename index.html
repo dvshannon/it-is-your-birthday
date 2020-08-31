@@ -51,6 +51,7 @@
         if (response.status === 'connected'){
             console.log('Authenticated');
             setElements(true);
+            testAPI();
         } else {
             console.log('Not Authenticated');
             setElements(false);
@@ -64,10 +65,18 @@
     });
     }
 
+    function testAPI(){
+        FB.api('/me?fields=name,email,birthday', function(response){
+            if(response && !response.error){
+                console.log('response');
+            }
+        })
+    }
+
     // shows/hides elements based off of authentication type
     function setElements(isLoggedIn){
         if(isLoggedIn){
-            document.getElementById('logout-btn').style.display = 'block';
+            document.getElementById('logout-btn').style.display = 'inline-block';
             document.getElementById('profile').style.display = 'block';
             document.getElementById('fb-btn').style.display = 'none';
         } else {
